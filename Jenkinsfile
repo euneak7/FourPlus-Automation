@@ -4,7 +4,7 @@ pipeline {
 
     stages {
 
-     
+
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
@@ -21,6 +21,11 @@ pipeline {
     post {
         always {
             echo 'Automation execution completed'
+            // Publish TestNG results
+                        step([
+                            $class: 'Publisher',
+                            reportFilenamePattern: 'target/surefire-reports/testng-results.xml'
+                        ])
         }
 
         success {
