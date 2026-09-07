@@ -26,6 +26,15 @@ pipeline {
                             $class: 'Publisher',
                             reportFilenamePattern: 'target/surefire-reports/testng-results.xml'
                         ])
+                            // Publish Extent Report
+                                    publishHTML([
+                                        allowMissing: true,
+                                        alwaysLinkToLastBuild: true,
+                                        keepAll: true,
+                                        reportDir: 'test-output',
+                                        reportFiles: 'ExtentReport.html',
+                                        reportName: 'Extent Report'
+                                    ])
         }
 
         success {
